@@ -35,5 +35,5 @@ object RandomEdges {
     StdDraw.point(x + circleX, y + circleY)
 
     (x + circleX, y + circleY)
-  }10
+  }
 }
