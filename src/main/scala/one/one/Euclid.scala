@@ -13,7 +13,7 @@ object Euclid {
     * @return
     */
   def rec(p: Int, q: Int): Int = {
-    println(s"$p, $q")
+//    println(s"$p, $q")
     val o = p % q
     if (o == 0) q
     else rec(q, o)
