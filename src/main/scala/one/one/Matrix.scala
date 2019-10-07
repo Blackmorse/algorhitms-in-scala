@@ -3,7 +3,7 @@ package one.one
 import edu.princeton.cs.algs4.StdRandom
 
 class Matrix(val n: Int, val m: Int) {
-  var arr = Array.ofDim[Double](m, n)
+  var arr = Array.ofDim[Double](n, m)
 
   def this(other: Array[Array[Double]]) {
     this(other.size, other(0).size)
@@ -14,33 +14,22 @@ class Matrix(val n: Int, val m: Int) {
   def fillRandom(): Unit = {
     def gen: () => Double = () => StdRandom.uniform(-10.0, 10.0)
     for (i <- 0 until n; j <- 0 until m) {
-      arr(j)(i) = gen()
+      arr(i)(j) = gen()
     }
-  }
-
-  def *(vec: Array[Double]) = {
-    if(n != vec.size) throw new IllegalArgumentException
-    val res = Array.fill(m)(0.0)
-    for (i <- arr.indices) {
-      val a = arr(i)
-      res(i) = a.zip(vec).map{case (a,b) => a * b}.sum
-    }
-    Matrix.toMatrix(res)
   }
 
   def *(matrix: Matrix): Matrix = {
     if (m != matrix.n) throw new IllegalArgumentException
-    val res = new Matrix(m, matrix.n)
-
-    for (i <- 0 until m; j <- 0 until matrix.n) {
-      val vec = matrix.arr.map(_(j))
-      res.arr(i)(j) = arr(i).zip(vec).map{case (a,b) => a * b}.sum
+    val res = new Matrix(n, matrix.m)
+    for (i <-0 until n; j <- 0 until matrix.m) {
+      res.arr(i)(j) =  matrix.arr.map(_(i)).zip(arr(j)).map({case(a, b) => a * b}).sum
     }
 
     res
   }
 
   def transpose(): Unit = {
+    if (n != m) throw new IllegalArgumentException
     for (i <- 0 until n; j <- 0 until m; if i < j) {
       val t = arr(j)(i)
       arr(j)(i) = arr(i)(j)
@@ -55,15 +44,16 @@ class Matrix(val n: Int, val m: Int) {
 
 object Matrix {
   def main(args: Array[String]): Unit = {
-    val m = new Matrix(3,2)
+    val m = new Matrix(1,3)
     m.fillRandom()
     m.print()
     println()
-    val n = new Matrix(2,4)
-    n.fillRandom()
-    n.print()
+    val m2 = new Matrix(3,1)
+    m2.fillRandom()
+    m2.print()
     println()
-    (m * n).print()
+    (m * m2).print
+
   }
 
   def scalar(vec1: Array[Double], vec2: Array[Double]) = {
