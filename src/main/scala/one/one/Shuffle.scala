@@ -8,17 +8,36 @@ object Shuffle {
     val n = StdIn.readInt()
     val m = StdIn.readInt()
 
+    val matrix = shuffleMatrix(n, m, StdRandom.shuffle)
+    matrix.print()
+
+    println("Wrong: ")
+
+    val wrongMatrix = shuffleMatrix(n, m, wrongShuffle)
+    wrongMatrix.print()
+  }
+
+  def shuffleMatrix(n: Int, m: Int,shuffle: Array[Int] => Unit): Matrix = {
     val matrix = new Matrix(m, m)
 
-    for (i <- 1 to n) {
+    for (_ <- 1 to n) {
       val arr = 0.until(m).toArray
-      StdRandom.shuffle(arr)
+      shuffle(arr)
 
       for (j <- arr.indices) {
         matrix.arr(arr(j))(j) += 1d
       }
     }
+    matrix
+  }
 
-    matrix.print()
+  def wrongShuffle(a: Array[Int]) = {
+    val n = a.length
+    for (i <- 0 until n) {
+      val r =  StdRandom.uniform(n)
+      val temp = a(i)
+      a(i) = a(r)
+      a(r) = temp
+    }
   }
 }
