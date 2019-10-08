@@ -2,6 +2,7 @@ package one.one
 
 import java.util
 
+import edu.princeton.cs.algs4.Counter
 import help.Helper
 
 object BinarySearch {
@@ -14,12 +15,17 @@ object BinarySearch {
     println(rankRec(44, a))
     println(lessCount(44, a))
     println(count(44, a))
+
+    val counter = new Counter("keys")
+    println(rank(44, a, counter))
+    println(s"counter: ${counter.tally()}")
   }
 
-  def rank(key: Int, a: Array[Int]): Int = {
+  def rank(key: Int, a: Array[Int], counter: Counter = new Counter("")): Int = {
     var lo = 0
     var hi = a.length - 1
     while (lo <= hi) {
+      counter.increment()
       val mid = lo + (hi - lo) / 2
       if (key < a(mid)) hi = mid - 1
       else if (key > a(mid)) lo = mid + 1
