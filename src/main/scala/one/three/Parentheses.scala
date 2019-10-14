@@ -1,5 +1,7 @@
 package one.three
 
+import edu.princeton.cs.algs4.Queue
+
 object Parentheses {
   val openBrackets = "([{"
   val closeBrackets = ")]}"
@@ -20,5 +22,6 @@ object Parentheses {
   private def bracketsMatches(openBracket: Char, closeBracket: Char): Boolean = {
     val index = openBrackets.indexOf(openBracket)
     closeBracket == closeBrackets(index)
+
   }
 }
