@@ -33,6 +33,11 @@ class Stack[Item] extends Iterable[Item] {
     item
   }
 
+  def peek(): Item = {
+    if (first != null) first.item
+    else null.asInstanceOf[Item]
+  }
+
   override def iterator: Iterator[Item] = new Iterator[Item] {
     private var current = first
 
