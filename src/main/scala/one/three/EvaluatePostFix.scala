@@ -1,6 +1,6 @@
 package one.three
 
-object PostFixEvaluator {
+object EvaluatePostFix {
   def evaluate(input: String): Int = {
     val exprs = new Stack[String]
 
