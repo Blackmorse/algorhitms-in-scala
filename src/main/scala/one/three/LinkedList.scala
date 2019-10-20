@@ -39,6 +39,15 @@ class LinkedList[T] extends Iterable[T] {
     }
   }
 
+  def find(value: T): Boolean = {
+    var el = first
+    while (el != null) {
+      if (el.value == value) return true
+      el = el.next
+    }
+    false
+  }
+
   override def iterator: Iterator[T] = new Iterator[T] {
     var current: Node[T] = first
 
