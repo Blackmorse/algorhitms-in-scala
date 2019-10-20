@@ -123,6 +123,22 @@ class LinkedListTest extends FunSuite {
     assert(iterator.next() == 4)
     assert(iterator.next() == 5)
     assert(!iterator.hasNext)
+  }
 
+  test("test remove") {
+    val list = new LinkedList[Int]
+
+    list.add(1)
+    list.add(2)
+    list.add(1)
+    list.add(3)
+    list.add(1)
+
+    list.remove(1)
+
+    val iterator = list.iterator
+    assert(iterator.next() == 2)
+    assert(iterator.next() == 3)
+    assert(!iterator.hasNext)
   }
 }

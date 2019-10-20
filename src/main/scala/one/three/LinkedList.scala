@@ -49,6 +49,25 @@ class LinkedList[T] extends Iterable[T] {
     false
   }
 
+  def remove(value: T) = {
+    var prev: Node[T] = null
+    var el = first
+    while (el != null) {
+      if(el.value == value) {
+        if (el == first) {
+          first = first.next
+          el = first
+        } else {
+          LinkedList.removeAfter(prev)
+          el = prev.next
+        }
+      } else {
+        prev = el
+        el = el.next
+      }
+    }
+  }
+
   override def iterator: Iterator[T] = new Iterator[T] {
     var current: Node[T] = first
 
