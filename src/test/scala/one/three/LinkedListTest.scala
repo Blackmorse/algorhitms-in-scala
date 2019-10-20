@@ -34,4 +34,44 @@ class LinkedListTest extends FunSuite {
     list.removeLast()
     assert(list.isEmpty)
   }
+
+  test("Delete from middle") {
+    val list = new LinkedList[Int]
+    list.add(1)
+    list.add(2)
+    list.add(3)
+    list.delete(1)
+
+    val iterator = list.iterator
+    assert(iterator.next() == 1)
+    assert(iterator.next() == 3)
+    assert(!iterator.hasNext)
+  }
+
+  test("Delete from end") {
+    val list = new LinkedList[Int]
+    list.add(1)
+    list.add(2)
+    list.add(3)
+    list.delete(2)
+
+    val iterator = list.iterator
+    assert(iterator.next() == 1)
+    assert(iterator.next() == 2)
+    assert(!iterator.hasNext)
+  }
+
+  test("Delete from beginning") {
+    val list = new LinkedList[Int]
+
+    list.add(1)
+    list.add(2)
+    list.add(3)
+    list.delete(0)
+
+    val iterator = list.iterator
+    assert(iterator.next() == 2)
+    assert(iterator.next() == 3)
+    assert(!iterator.hasNext)
+  }
 }

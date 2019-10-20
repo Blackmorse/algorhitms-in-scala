@@ -28,6 +28,17 @@ class LinkedList[T] extends Iterable[T] {
     node.next = null
   }
 
+  def delete(n: Int) = {
+    if (n == 0) first = first.next else {
+      var prev: Node[T] = null
+      var elem = first
+      0 until n foreach (_ => {
+        prev = elem; elem = elem.next
+      })
+      prev.next = elem.next
+    }
+  }
+
   override def iterator: Iterator[T] = new Iterator[T] {
     var current: Node[T] = first
 
