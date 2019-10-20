@@ -1,5 +1,7 @@
 package one.three
 
+import scala.annotation.tailrec
+
 sealed case class Node[T](var value: T, var next: Node[T])
 
 class LinkedList[T] extends Iterable[T] {
@@ -80,6 +82,19 @@ class LinkedList[T] extends Iterable[T] {
       el = el.next
     }
     max
+  }
+
+  def maxRec[B >: T](implicit ord: Ordering[B]): T = {
+    @tailrec
+    def doMaxRec(node: Node[T], max: T): T = {
+      if (node == null) max
+      else {
+        val m = if(ord.compare(node.value, max) > 0) node.value else max
+        doMaxRec(node.next, m)
+      }
+    }
+    if(first != null) doMaxRec(first, first.value)
+    else null.asInstanceOf[T]
   }
 
   override def iterator: Iterator[T] = new Iterator[T] {
