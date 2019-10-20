@@ -68,6 +68,20 @@ class LinkedList[T] extends Iterable[T] {
     }
   }
 
+  override def max[B >: T](implicit ord: Ordering[B]): T = {
+    var max = first.next.value
+
+    var el = first
+
+    while (el != null) {
+      if (ord.compare(el.value, max) > 0) {
+        max = el.value
+      }
+      el = el.next
+    }
+    max
+  }
+
   override def iterator: Iterator[T] = new Iterator[T] {
     var current: Node[T] = first
 

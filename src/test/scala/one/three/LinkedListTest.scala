@@ -141,4 +141,15 @@ class LinkedListTest extends FunSuite {
     assert(iterator.next() == 3)
     assert(!iterator.hasNext)
   }
+
+  test("test max") {
+    val list = new LinkedList[Int]
+
+    list.add(-1)
+    list.add(3)
+    list.add(4)
+    list.add(1)
+
+    assert(list.max == 4)
+  }
 }
