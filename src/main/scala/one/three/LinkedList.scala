@@ -39,6 +39,7 @@ class LinkedList[T] extends Iterable[T] {
     }
   }
 
+
   def find(value: T): Boolean = {
     var el = first
     while (el != null) {
@@ -62,5 +63,9 @@ class LinkedList[T] extends Iterable[T] {
 }
 
 object LinkedList {
-
+  def removeAfter[T](node: Node[T]) = {
+    if (node.next != null) {
+      node.next = node.next.next
+    }
+  }
 }
