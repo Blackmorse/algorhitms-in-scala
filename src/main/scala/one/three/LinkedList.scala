@@ -68,4 +68,14 @@ object LinkedList {
       node.next = node.next.next
     }
   }
+
+  def insertAfter[T](node: Node[T], toInsert: Node[T]) = {
+    if (node != null && toInsert != null) {
+      var current = node
+      while(current.next != null) {
+        current = current.next
+      }
+      current.next = toInsert
+    }
+  }
 }
