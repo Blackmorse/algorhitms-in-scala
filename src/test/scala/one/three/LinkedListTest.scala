@@ -29,6 +29,16 @@ class LinkedListTest extends FunSuite {
     assert(!iterator.hasNext)
   }
 
+  test("test remove only one") {
+    val list = new LinkedList[Int]
+    list.add(1)
+    list.removeLast()
+    list.add(2)
+
+    val iterator = list.iterator
+    assert(iterator.next() == 2)
+  }
+
   test("Remove from empty list") {
     val list = new LinkedList[Int]
     list.removeLast()
@@ -162,5 +172,68 @@ class LinkedListTest extends FunSuite {
     list.add(1)
 
     assert(list.maxRec == 4)
+  }
+
+  test("Test reverse iterative") {
+    val list = new LinkedList[Int]
+    list.add(1)
+    list.add(2)
+    list.add(3)
+
+    val reversed = LinkedList.reverseIterative(list)
+
+    val iterator = reversed.iterator
+    assert(iterator.next() == 3)
+    assert(iterator.next() == 2)
+    assert(iterator.next() == 1)
+    assert(!iterator.hasNext)
+  }
+
+  test("test iterativ reverse one element") {
+    val list = new LinkedList[Int]
+    list.add(1)
+
+    val reversed = LinkedList.reverseIterative(list)
+
+    val iterator = reversed.iterator
+    assert(iterator.next() == 1)
+    assert(!iterator.hasNext)
+  }
+
+  test("test reverse iterative empty") {
+    val list = new LinkedList[Int]
+    assert(LinkedList.reverseIterative(list).isEmpty)
+  }
+
+  test("test reverse recursive ") {
+
+    val list = new LinkedList[Int]
+    list.add(1)
+    list.add(2)
+    list.add(3)
+
+    val reversed = LinkedList.reverseRecursive(list)
+
+    val iterator = reversed.iterator
+    assert(iterator.next() == 3)
+    assert(iterator.next() == 2)
+    assert(iterator.next() == 1)
+    assert(!iterator.hasNext)
+  }
+
+  test("test recursive one element") {
+    val list = new LinkedList[Int]
+    list.add(1)
+
+    val reversed = LinkedList.reverseRecursive(list)
+
+    val iterator = reversed.iterator
+    assert(iterator.next() == 1)
+    assert(!iterator.hasNext)
+  }
+
+  test("test reverse recursive empty") {
+    val list = new LinkedList[Int]
+    assert(LinkedList.reverseRecursive(list).isEmpty)
   }
 }

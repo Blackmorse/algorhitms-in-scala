@@ -7,6 +7,7 @@ case class Node[T](var value: T, var next: Node[T])
 class LinkedList[T] extends Iterable[T] {
 
   var first: Node[T] = null
+  val field = 1
 
   def add(value: T): Unit = {
     if (first == null) {
@@ -26,8 +27,11 @@ class LinkedList[T] extends Iterable[T] {
       node = next
       next = next.next
     }
-
-    node.next = null
+    if (node != null) {
+      node.next = null
+    } else {
+      first = null
+    }
   }
 
   def delete(n: Int) = {
@@ -125,5 +129,37 @@ object LinkedList {
       }
       current.next = toInsert
     }
+  }
+
+  def reverseIterative[T](list: LinkedList[T]): LinkedList[T] = {
+    var previous: Node[T] = null
+    var current = list.first
+    while(current != null) {
+      val next = current.next
+      current.next = previous
+
+      previous = current
+
+      current = next
+    }
+    val first = previous
+
+    val result = new LinkedList[T]
+    result.first = first
+    result
+  }
+
+  def reverseRecursive[T](list: LinkedList[T]): LinkedList[T] = {
+    if (list.isEmpty) return new LinkedList[T]
+    def doReverse(previous: Node[T], node: Node[T]): Node[T] = {
+      val first = if (node.next == null) node else doReverse(node, node.next)
+      node.next = previous
+      first
+    }
+
+    val reverse = doReverse(null, list.first)
+    val result = new LinkedList[T]
+    result.first = reverse
+    result
   }
 }
