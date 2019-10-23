@@ -22,7 +22,8 @@ class LinkedListTest extends FunSuite {
     list.add(2)
     list.add(3)
 
-    list.removeLast()
+    val v = list.removeLast()
+    assert(v == 3)
     val iterator = list.iterator
     assert(iterator.next() == 1)
     assert(iterator.next() == 2)
@@ -32,7 +33,8 @@ class LinkedListTest extends FunSuite {
   test("test remove only one") {
     val list = new LinkedList[Int]
     list.add(1)
-    list.removeLast()
+    val v = list.removeLast()
+    assert(v == 1)
     list.add(2)
 
     val iterator = list.iterator
@@ -41,7 +43,9 @@ class LinkedListTest extends FunSuite {
 
   test("Remove from empty list") {
     val list = new LinkedList[Int]
-    list.removeLast()
+    assertThrows[Exception] {
+      list.removeLast()
+    }
     assert(list.isEmpty)
   }
 
@@ -50,7 +54,8 @@ class LinkedListTest extends FunSuite {
     list.add(1)
     list.add(2)
     list.add(3)
-    list.delete(1)
+    val v = list.delete(1)
+    assert(v == 2)
 
     val iterator = list.iterator
     assert(iterator.next() == 1)
@@ -63,7 +68,8 @@ class LinkedListTest extends FunSuite {
     list.add(1)
     list.add(2)
     list.add(3)
-    list.delete(2)
+    val r = list.delete(2)
+    assert(r == 3)
 
     val iterator = list.iterator
     assert(iterator.next() == 1)
@@ -77,7 +83,8 @@ class LinkedListTest extends FunSuite {
     list.add(1)
     list.add(2)
     list.add(3)
-    list.delete(0)
+    val r = list.delete(0)
+    assert(r == 1)
 
     val iterator = list.iterator
     assert(iterator.next() == 2)
@@ -235,5 +242,16 @@ class LinkedListTest extends FunSuite {
   test("test reverse recursive empty") {
     val list = new LinkedList[Int]
     assert(LinkedList.reverseRecursive(list).isEmpty)
+  }
+
+  test("test insert in beginning") {
+    val list = new LinkedList[Int]
+    list.add(1)
+    list.addFirst(2)
+
+    val iterator: Iterator[Int] = list.iterator
+    assert(iterator.next() == 2)
+    assert(iterator.next() == 1)
+    assert(!iterator.hasNext)
   }
 }

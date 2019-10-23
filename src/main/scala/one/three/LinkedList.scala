@@ -19,29 +19,42 @@ class LinkedList[T] extends Iterable[T] {
     }
   }
 
-  def removeLast(): Unit = {
-    if(first == null) return
+  def addFirst(value: T): Unit = {
+    val newNode = Node(value, first)
+    first = newNode
+  }
+
+  def removeLast(): T = {
+    if(first == null) throw new Exception("empty List")
     var node: Node[T] = null
     var next: Node[T] = first
     while (next.next != null) {
       node = next
       next = next.next
     }
+    val r = next.value
     if (node != null) {
       node.next = null
     } else {
       first = null
     }
+    r
   }
 
-  def delete(n: Int) = {
-    if (n == 0) first = first.next else {
+  def delete(n: Int): T = {
+    if (n == 0) {
+      val r = first.value
+      first = first.next
+      r
+    } else {
       var prev: Node[T] = null
       var elem = first
       0 until n foreach (_ => {
         prev = elem; elem = elem.next
       })
+      val r = elem.value
       prev.next = elem.next
+      r
     }
   }
 
