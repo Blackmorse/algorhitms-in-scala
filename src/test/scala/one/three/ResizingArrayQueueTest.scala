@@ -65,4 +65,13 @@ class ResizingArrayQueueTest extends FunSuite {
     assert(iterator.next() == 3)
     assert(!iterator.hasNext)
   }
+
+  test("test isEmpty") {
+    val queue = new ResizingArrayQueue[Int](1)
+    assert(queue.isEmpty)
+    queue.enqueue(1)
+    assert(!queue.isEmpty)
+    queue.dequeue()
+    assert(queue.isEmpty)
+  }
 }

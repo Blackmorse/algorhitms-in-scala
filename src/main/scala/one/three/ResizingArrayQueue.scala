@@ -1,7 +1,5 @@
 package one.three
 
-import edu.princeton.cs.algs4.Transaction
-
 import scala.reflect.ClassTag
 
 class ResizingArrayQueue[T: ClassTag](private var initialSize: Int) extends Iterable[T] {
