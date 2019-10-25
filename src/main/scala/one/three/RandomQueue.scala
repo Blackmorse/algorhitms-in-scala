@@ -4,10 +4,10 @@ import edu.princeton.cs.algs4.StdRandom
 
 import scala.reflect.ClassTag
 
-class RandomQueue[T: ClassTag] {
+class RandomQueue[T: ClassTag] extends Iterable[T] {
   private val arrayQueue = new ResizingArrayQueue[T](1)
 
-  def isEmpty: Boolean = arrayQueue.isEmpty
+  override def isEmpty: Boolean = arrayQueue.isEmpty
 
   def enqueue(t: T): Unit = arrayQueue.enqueue(t)
 
@@ -22,5 +22,12 @@ class RandomQueue[T: ClassTag] {
   def sample(): T = {
     val r = StdRandom.uniform(arrayQueue.size)
     arrayQueue.arr(arrayQueue.firstIndex + r)
+  }
+
+  override def iterator: Iterator[T] = {
+    val shuffle = arrayQueue.iterator.toArray.map(_.asInstanceOf[Object])
+    StdRandom.shuffle(shuffle)
+
+    shuffle.map(_.asInstanceOf[T]).iterator
   }
 }
