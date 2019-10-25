@@ -5,6 +5,8 @@ case class DoubleNode[T](value: T, var previous: DoubleNode[T], var next: Double
 class DoubleList[T] extends  Iterable[T] {
   var first: DoubleNode[T] = null
 
+  override def isEmpty: Boolean = first == null
+
   def insertBeginning(value: T) = {
     if (first == null) {
       first = new DoubleNode[T](value, null, null)
