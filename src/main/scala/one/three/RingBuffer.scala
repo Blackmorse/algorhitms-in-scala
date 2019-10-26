@@ -25,7 +25,6 @@ class RingBuffer[T: ClassTag](capacity: Int) {
   }
 
   def dequeue(): T = {
-
     while(n.get() == 0) {
       this.synchronized{ wait()}
     }
