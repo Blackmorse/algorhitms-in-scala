@@ -1,9 +1,9 @@
-package one.three
+package one.three.generalizedqueue
 
-class GeneralizedQueue[T] {
-  def isEmpty: Boolean = ???
+trait GeneralizedQueue[T] extends Iterable[T] {
+  def isEmpty: Boolean
 
-  def insert(t: T) = ???
+  def insert(t: T)
 
-  def delete(k: Int): T = ???
+  def delete(k: Int): T
 }

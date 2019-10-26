@@ -1,6 +1,6 @@
 package one.three.generalizedqueue
 
-class LinkedGeneralizedViewTest extends  GeneralizedQueueTest {
+class LinkedGeneralizedQueueTt aest extends  GeneralizedQueueTest {
   before {
     queue = new LinkedGeneralizedQueue[Int]
   }

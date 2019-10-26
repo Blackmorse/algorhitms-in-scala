@@ -2,12 +2,12 @@ package one.three.generalizedqueue
 
 import org.scalatest.{BeforeAndAfter, FunSuite}
 
-class ArrayGeneralizedQueueTest extends FunSuite with BeforeAndAfter {
-  var queue: ArrayGeneralizedQueue[Int] = null
+abstract class GeneralizedQueueTest extends FunSuite with BeforeAndAfter {
+  var queue: GeneralizedQueue[Int] = null
 
-  before {
-    queue = new ArrayGeneralizedQueue[Int](5)
-  }
+//  before {
+//    queue = new ArrayGeneralizedQueue[Int](5)
+//  }
 
   test("test insert") {
     queue.insert(1)
