@@ -7,6 +7,15 @@ class Queue[Item] extends Iterable[Item] {
 
   private var N = 0
 
+  def this(queue: Queue[Item]) {
+    this()
+    for (_ <- 1 to queue.size) {
+      val e = queue.dequeue()
+      enqueue(e)
+      queue.enqueue(e)
+    }
+  }
+
   // number of items on the queue
 
   private class Node { // nested class to define nodes
