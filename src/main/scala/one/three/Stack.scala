@@ -9,6 +9,21 @@ class Stack[Item] extends Iterable[Item] {
     var next: Node = _
   }
 
+  def this(stack: Stack[Item]) = {
+    this()
+    val tmpStack = new Stack[Item]()
+
+    while (!stack.isEmpty) {
+      tmpStack.push(stack.pop)
+    }
+
+    while (!tmpStack.isEmpty) {
+      val p = tmpStack.pop
+      stack.push(p)
+      push(p)
+    }
+  }
+
   private var first: Node = _
 
   private var N = 0
