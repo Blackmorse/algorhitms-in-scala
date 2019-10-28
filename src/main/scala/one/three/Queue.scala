@@ -46,6 +46,18 @@ class Queue[Item] extends Iterable[Item] {
     item
   }
 
+  def ++(other: Queue[Item]): Queue[Item] = {
+    val queue = new Queue[Item]()
+    while (!isEmpty) {
+      queue.enqueue(dequeue())
+    }
+
+    while (!other.isEmpty) {
+      queue.enqueue(other.dequeue())
+    }
+    queue
+  }
+
 
   override def iterator: Iterator[Item] = new Iterator[Item] {
     private var current = first
