@@ -1,5 +1,7 @@
 package one.three
 
+import java.util.ConcurrentModificationException
+
 import org.scalatest.FunSuite
 
 class StackTest extends FunSuite {
@@ -29,5 +31,22 @@ class StackTest extends FunSuite {
     assert(stack.pop == 2)
     assert(stack.pop == 1)
     assert(stack.isEmpty)
+  }
+
+  test("test fail-fast iterator") {
+    val stack = new Stack[Int]()
+    stack.push(1).push(2).push(3)
+
+    assertThrows[ConcurrentModificationException] {
+      for (s <- stack) {
+        stack.push(s)
+      }
+    }
+
+    assertThrows[ConcurrentModificationException] {
+      for (s <- stack) {
+        stack.pop
+      }
+    }
   }
 }

@@ -1,5 +1,7 @@
 package one.three
 
+import java.util.ConcurrentModificationException
+
 import scala.collection.mutable
 
 
@@ -28,6 +30,9 @@ class Stack[Item] extends Iterable[Item] {
 
   private var N = 0
 
+  private var pops = 0
+  private var pushs = 0
+
   override def isEmpty: Boolean = first == null
 
   override def size: Int = N
@@ -38,6 +43,7 @@ class Stack[Item] extends Iterable[Item] {
     first.item = item
     first.next = oldFirst
     N += 1
+    pushs += 1
     this
   }
 
@@ -45,6 +51,7 @@ class Stack[Item] extends Iterable[Item] {
     val item = first.item
     first = first.next
     N -= 1
+    pops += 1
     item
   }
 
@@ -54,11 +61,18 @@ class Stack[Item] extends Iterable[Item] {
   }
 
   override def iterator: Iterator[Item] = new Iterator[Item] {
+    private val checkPops = pops
+    private val checkPushs = pushs
+
     private var current = first
 
-    override def hasNext: Boolean = current != null
+    override def hasNext: Boolean = {
+      if (checkPops != pops || checkPushs != pushs) throw new ConcurrentModificationException()
+      current != null
+    }
 
     override def next(): Item = {
+      if (checkPops != pops || checkPushs != pushs) throw new ConcurrentModificationException()
       val item = current.item
       current = current.next
       item
