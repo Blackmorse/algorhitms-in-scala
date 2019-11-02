@@ -7,30 +7,38 @@ import scala.collection.mutable
 object DoublingTest {
   private val MAXIMUM_INTEGER = 1000000
 
-  def timeTrial(n: Int): Double = {
+  private def timeTrial[T](n: Int, f: Array[Int] => T): Double = {
     val a = Array.fill(n)(0).map(_ => StdRandom.uniform(-MAXIMUM_INTEGER, MAXIMUM_INTEGER))
     val timer = new Stopwatch()
-    ThreeSum.count(a)
+    f(a)
     timer.elapsedTime()
   }
 
-  def main(args: Array[String]): Unit = {
-    var n = 125
+  def doTest[T](startN: Int, iterations: Int, f: Array[Int] => T, logPlot: Boolean = false): Unit = {
+    var n = startN
     val data = mutable.Buffer[(Int, Double)]()
-    for (i <- 1 to 6) {
-      n += n
-      val time = timeTrial(n)
-      println(s"$n: $time")
+    var previousTime: Option[Double] = None
+
+    for (i <- 1 to iterations) {
+      val time = timeTrial(n, f)
+      val diff = previousTime.map(pt => time / pt).getOrElse(Double.NaN)
+
+      println(s"$n: $time. x$diff")
       data += ((n, time))
 
-      if (i >= 2) draw(scaleData(data.toSeq))
+      if (i >= 2) draw(scaleData(data.toSeq, logPlot))
+      n += n
+      previousTime = Some(time)
     }
   }
 
-  private def scaleData(data: Seq[(Int, Double)]): Seq[(Double, Double)] = {
-    val scaledData = data
-    //Uncomment to show log-log plot
-//          .map{case(x, y) => (Math.log(1 + x), Math.log(y))}
+  def main(args: Array[String]): Unit = {
+    doTest(250, 9, ThreeSum.count, true)
+  }
+
+  private def scaleData(data: Seq[(Int, Double)], logPlot: Boolean = false): Seq[(Double, Double)] = {
+    val scaledData = if (logPlot) data.map{case(x, y) => (Math.log(1 + x), Math.log(y))}
+                  else data.map{case(x, y) => (x.toDouble, y)}
 
     val maxX = scaledData.maxBy(_._1)._1
     val minX = scaledData.minBy(_._1)._1
