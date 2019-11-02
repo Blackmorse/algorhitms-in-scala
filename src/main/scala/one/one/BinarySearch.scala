@@ -34,6 +34,23 @@ object BinarySearch {
     -1
   }
 
+  def rankMin(key: Int, a: Array[Int]): Int = {
+    var lo = 0
+    var hi = a.length - 1
+    var res = -1
+    while(lo <= hi) {
+      val mid = lo + (hi - lo) / 2
+      if(key < a(mid)) hi = mid - 1
+      else if (key > a(mid)) lo = mid + 1
+      else {
+        res = mid
+        hi = mid - 1
+      }
+    }
+
+    res
+  }
+
   def rankRec(key: Int, a: Array[Int]): Int = {
     doRankRec(key, a, 0, a.length - 1, 0)
   }

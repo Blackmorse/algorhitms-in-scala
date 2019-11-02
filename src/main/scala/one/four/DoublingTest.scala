@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.{StdDraw, StdRandom, Stopwatch}
 import scala.collection.mutable
 
 object DoublingTest {
-  private val MAXIMUM_INTEGER = 1000000
+  val MAXIMUM_INTEGER = 1000000
 
   private def timeTrial[T](n: Int, f: Array[Int] => T): Double = {
     val a = Array.fill(n)(0).map(_ => StdRandom.uniform(-MAXIMUM_INTEGER, MAXIMUM_INTEGER))
