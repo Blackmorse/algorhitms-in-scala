@@ -70,6 +70,7 @@ object Main {
   }
 
   def fact(n: Int): Long = {
-    1.to(n).foldLeft(1)(_ * _)
+    if (n == 0) 1 else
+    1.toLong.to(n).foldLeft(1.toLong)(_ * _)
   }
 }
