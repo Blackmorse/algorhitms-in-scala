@@ -47,7 +47,22 @@ object BinarySearch {
         hi = mid - 1
       }
     }
+    res
+  }
 
+  def rankMax(key: Int, a: Array[Int]): Int = {
+    var lo = 0
+    var hi = a.length - 1
+    var res = -1
+    while(lo <= hi) {
+      val mid = lo + (hi - lo) / 2
+      if(key < a(mid)) hi = mid - 1
+      else if (key > a(mid)) lo = mid + 1
+      else {
+        res = mid
+        lo = mid + 1
+      }
+    }
     res
   }
 
