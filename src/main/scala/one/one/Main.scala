@@ -73,4 +73,8 @@ object Main {
     if (n == 0) 1 else
     1.toLong.to(n).foldLeft(1.toLong)(_ * _)
   }
+
+  def bin(n: Int, k: Int): Long = {
+    Main.fact(n) / (Main.fact(n - k) * Main.fact(k))
+  }
 }

@@ -34,6 +34,7 @@ object DoublingTest {
 
   def main(args: Array[String]): Unit = {
     doTest(250, 9, ThreeSum.count, true)
+    println("---end----")
   }
 
   private def scaleData(data: Seq[(Int, Double)], logPlot: Boolean = false): Seq[(Double, Double)] = {
