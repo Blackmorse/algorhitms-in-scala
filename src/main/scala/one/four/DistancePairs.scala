@@ -21,4 +21,11 @@ object DistancePairs {
     }
     (first, second)
   }
+
+  def farthest(a: Array[Double]): (Double, Double) = {
+    val min = a.min
+    val max = a.max
+
+    (min, max)
+  }
 }
