@@ -44,16 +44,10 @@ class Matrix(val n: Int, val m: Int) {
 
 object Matrix {
   def main(args: Array[String]): Unit = {
-    val m = new Matrix(1,3)
+    val m = new Matrix(6, 6)
     m.fillRandom()
-    m.print()
-    println()
-    val m2 = new Matrix(3,1)
-    m2.fillRandom()
-    m2.print()
-    println()
-    (m * m2).print
 
+    m.print()
   }
 
   def scalar(vec1: Array[Double], vec2: Array[Double]) = {

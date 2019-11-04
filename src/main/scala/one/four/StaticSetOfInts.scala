@@ -6,10 +6,13 @@ import one.one.BinarySearch
 
 class StaticSetOfInts(a: Array[Int]) {
   util.Arrays.sort(a)
+  private val distinctA = a.distinct
 
   def rank(key: Int): Int = BinarySearch.rank(key, a)
 
   def contains(key: Int): Boolean = rank(key) != -1
+
+  def containsDistinct(key: Int): Boolean = rank(key) != -1
 
   def howMuch(key: Int): Int = {
     val min = BinarySearch.rankMin(key, a)
