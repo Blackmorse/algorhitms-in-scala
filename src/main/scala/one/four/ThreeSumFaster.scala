@@ -2,8 +2,6 @@ package one.four
 
 import java.util
 
-import edu.princeton.cs.algs4.ThreeSumFast
-
 object ThreeSumFaster {
   def count(a: Array[Int]): Int = {
     util.Arrays.sort(a)
