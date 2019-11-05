@@ -17,18 +17,30 @@ object BinarySearch {
     println(count(44, a))
 
     val counter = new Counter("keys")
-    println(rank(44, a, counter))
+    println(rank(44, a, 0, 0, counter))
     println(s"counter: ${counter.tally()}")
   }
 
-  def rank(key: Int, a: Array[Int], counter: Counter = new Counter("")): Int = {
-    var lo = 0
-    var hi = a.length - 1
+  def rank(key: Int, a: Array[Int], low: Int = 0, high: Int = 0, counter: Counter = new Counter("")): Int = {
+    var lo = low
+    var hi = if(high == 0) a.length - 1 else high
     while (lo <= hi) {
       counter.increment()
       val mid = lo + (hi - lo) / 2
       if (key < a(mid)) hi = mid - 1
       else if (key > a(mid)) lo = mid + 1
+      else return mid
+    }
+    -1
+  }
+
+  def rankInverse(key: Int, a: Array[Int], low: Int = 0, high: Int = 0): Int = {
+    var lo = low
+    var hi = if(high == 0) a.length - 1 else high
+    while (lo <= hi) {
+      val mid = lo + (hi - lo) / 2
+      if (key > a(mid)) hi = mid - 1
+      else if (key < a(mid)) lo = mid + 1
       else return mid
     }
     -1
