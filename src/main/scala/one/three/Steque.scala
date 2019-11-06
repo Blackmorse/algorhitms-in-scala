@@ -2,6 +2,7 @@ package one.three
 
 class Steque[T] extends Iterable[T]{
  private val list = new LinkedList[T]
+  //TODO last element and size
 
  def push(value: T) = {
    list.addFirst(value)
