@@ -7,20 +7,24 @@ case class Node[T](var value: T, var next: Node[T])
 class LinkedList[T] extends Iterable[T] {
 
   var first: Node[T] = null
+  var lastEl: Node[T] = null
   val field = 1
 
   def add(value: T): Unit = {
     if (first == null) {
       first = new Node[T](value, null)
+      lastEl = first
     } else {
-      var el = first
-      while (el.next != null) el = el.next
-      el.next = Node(value, null)
+      lastEl.next = Node(value, null)
+      lastEl = lastEl.next
     }
   }
 
   def addFirst(value: T): Unit = {
     val newNode = Node(value, first)
+    if(first == null) {
+      lastEl = newNode
+    }
     first = newNode
   }
 
@@ -35,8 +39,10 @@ class LinkedList[T] extends Iterable[T] {
     val r = next.value
     if (node != null) {
       node.next = null
+      lastEl = node
     } else {
       first = null
+      lastEl = null
     }
     r
   }
