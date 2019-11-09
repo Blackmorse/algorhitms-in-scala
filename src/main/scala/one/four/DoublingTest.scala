@@ -7,20 +7,20 @@ import scala.collection.mutable
 object DoublingTest {
   val MAXIMUM_INTEGER = 1000000
 
-  private def timeTrial[T](n: Int, f: Array[Int] => T): Double = {
+  private def timeTrial[T](n: Int, f: Array[Int] => T, testNumber: Int): Double = {
     val a = Array.fill(n)(0).map(_ => StdRandom.uniform(-MAXIMUM_INTEGER, MAXIMUM_INTEGER))
     val timer = new Stopwatch()
-    f(a)
+    1 to testNumber foreach (_ => f(a))
     timer.elapsedTime()
   }
 
-  def doTest[T](startN: Int, iterations: Int, f: Array[Int] => T, logPlot: Boolean = false): Unit = {
+  def doTest[T](startN: Int, iterations: Int, f: Array[Int] => T, logPlot: Boolean = false, testNumber: Int = 1): Unit = {
     var n = startN
     val data = mutable.Buffer[(Int, Double)]()
     var previousTime: Option[Double] = None
 
     for (i <- 1 to iterations) {
-      val time = timeTrial(n, f)
+      val time = timeTrial(n, f, testNumber) / testNumber
       val diff = previousTime.map(pt => time / pt).getOrElse(Double.NaN)
 
       println(s"$n: $time. x$diff")

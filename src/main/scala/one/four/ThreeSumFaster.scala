@@ -13,7 +13,7 @@ object ThreeSumFaster {
   }
 
   def main(args: Array[String]): Unit = {
-    DoublingTest.doTest(5000, 6, count)
+    DoublingTest.doTest(500, 9, count, testNumber = 5)
   }
 }
 
