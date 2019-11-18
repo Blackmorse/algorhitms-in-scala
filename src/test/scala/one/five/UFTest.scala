@@ -14,5 +14,9 @@ abstract class UFTest extends FunSuite with BeforeAndAfter {
     assert(uf.find(1) == uf.find(3))
     assert(uf.find(4) != uf.find(3))
     assert(uf.find(4) == uf.find(5))
+
+    assert(uf.find(6) != uf.find(7))
+    assert(uf.find(6) != uf.find(1))
+    assert(uf.find(6) != uf.find(2))
   }
 }

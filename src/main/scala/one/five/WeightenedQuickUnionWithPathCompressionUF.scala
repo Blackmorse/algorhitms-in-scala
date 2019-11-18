@@ -2,7 +2,7 @@ package one.five
 
 import one.five.drawtree.DrawTree
 
-class WeightenedQuickFind(val n: Int) extends UF {
+class WeightenedQuickUnionWithPathCompressionUF(val n: Int) extends UF {
   val sizes = Array.fill(n)(1)
 
   override def find(p: Int): Int = {
@@ -18,7 +18,6 @@ class WeightenedQuickFind(val n: Int) extends UF {
     if (rootP == rootQ) return
 
     if (sizes(rootP) > sizes(rootQ)) {
-//      id(rootQ) = rootP
       var c = q
       do {
         val cc = id(c)
@@ -40,9 +39,9 @@ class WeightenedQuickFind(val n: Int) extends UF {
   }
 }
 
-object WeightenedQuickFind {
+object WeightenedQuickUnionWithPathCompressionUF {
   def main(args: Array[String]): Unit = {
-    val uf = new WeightenedQuickFind(14)
+    val uf = new WeightenedQuickUnionWithPathCompressionUF(14)
 
     uf.union(0, 2 )
     uf.union(1, 3)
