@@ -7,7 +7,7 @@ class GuessingClientTest extends FunSuite {
   test("test guessing client") {
     StdRandom.setSeed(1L)
 
-    val client = new GuessingClient(20)
+    val client = new GuessingClient(20, Some(5))
 
     assert(client.guess(10) == None)
     assert(client.guess(15) == Some(Cold))

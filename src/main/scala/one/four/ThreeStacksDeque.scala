@@ -26,7 +26,7 @@ class ThreeStacksDeque[T] extends Deque[T] {
   override def popRight(): T = {
     if(leftStack.isEmpty && rightStack.isEmpty) throw new IllegalArgumentException("No elements")
     if (rightStack.isEmpty) {
-      val n = leftStack.size
+      val n = leftStack.size / 2
       1 to n foreach (_ => thirdStack.push(leftStack.pop))
       while(!leftStack.isEmpty) rightStack.push(leftStack.pop)
       while(!thirdStack.isEmpty) leftStack.push(thirdStack.pop)
