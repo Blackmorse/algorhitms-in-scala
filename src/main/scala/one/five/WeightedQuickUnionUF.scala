@@ -22,5 +22,6 @@ class WeightedQuickUnionUF(val n: Int) extends UF {
       id(rootP) = rootQ
       sizes(rootQ) += sizes(rootP)
     }
+    count -=1
   }
 }

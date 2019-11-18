@@ -10,13 +10,6 @@ class WeightenedQuickFindUF(val n: Int) extends UF {
     val qComponent = find(q)
     if(pComponent == qComponent) return
 
-//    val component = if (sizes(pComponent) > sizes(qComponent)) pComponent else qComponent
-
-//    for (i <- id.indices) {
-//      if (id(i) == pComponent || id(i) == qComponent) id(i) = component
-//    }
-//    sizes(pComponent) += sizes(qComponent)
-
     if(sizes(pComponent) > sizes(qComponent)) {
       for (i <- id.indices) {
         if(id(i) == qComponent) id(i) = pComponent
@@ -28,5 +21,6 @@ class WeightenedQuickFindUF(val n: Int) extends UF {
       }
       sizes(qComponent) += sizes(pComponent)
     }
+    count -=1
   }
 }

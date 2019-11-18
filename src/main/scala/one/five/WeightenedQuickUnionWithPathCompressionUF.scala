@@ -36,6 +36,7 @@ class WeightenedQuickUnionWithPathCompressionUF(val n: Int) extends UF {
       } while(c != id(c))
       sizes(rootQ) += sizes(rootP)
     }
+    count -=1
   }
 }
 
