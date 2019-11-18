@@ -38,4 +38,20 @@ abstract class UFTest extends FunSuite with BeforeAndAfter {
     assert(uf.find(4) == uf.find(0))
     assert(uf.find(2) == uf.find(4))
   }
+
+  test("test 3") {
+    uf.union(1, 0 )
+    uf.union(1, 2)
+    uf.union(2,3)
+    uf.union(3,4)
+
+    uf.union(5, 6 )
+    uf.union(6, 7)
+    uf.union(7,8)
+    uf.union(8,9)
+
+    uf.union(9, 3)
+
+    assert(uf.find(7) == uf.find(3))
+  }
 }
