@@ -1,7 +1,7 @@
 package one.five
 
 trait UF {
-  val n: Int
+  def n: Int
   val id: Array[Int] = (0 until n).toArray
   var count = n
 
