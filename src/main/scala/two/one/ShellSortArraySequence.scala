@@ -1,9 +1,14 @@
 package two.one
 
+import edu.princeton.cs.algs4.StdRandom
+
 import scala.collection.mutable
 
 class ShellSortArraySequence[T](implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] {
+  var compares = 0
+
   override def sort(a: Array[T]): Unit = {
+    compares = 0
     val n = a.length
 
     val arrayBuffer= mutable.Buffer[Int]()
@@ -25,5 +30,40 @@ class ShellSortArraySequence[T](implicit protected val toOrdered: T => Ordered[T
         }
       }
     }
+  }
+
+
+  override protected def less(a: T, b: T): Boolean = {
+    compares += 1
+    a.compareTo(b) < 0
+  }
+}
+
+object ShellSortArraySequence {
+  def main(args: Array[String]): Unit = {
+
+    val sorter = new ShellSortArraySequence[Double]()
+
+
+
+    var n = 10
+
+    var oldRel = Double.NaN
+
+
+    for (i <- 1 to 7) {
+      val a = (1 to n map (_ => StdRandom.uniform())).toArray
+      sorter.sort(a)
+
+      val comp = sorter.compares.toDouble / n
+
+      val div = if (oldRel == Double.NaN) Double.NaN else comp/oldRel
+
+      println(s"n: $n, compares: ${sorter.compares}, rel: $comp, rate: $div")
+
+      n *= 10
+      oldRel = comp
+    }
+
   }
 }
