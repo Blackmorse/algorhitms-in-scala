@@ -26,3 +26,11 @@ trait SortAlgorhitm[T] {
   }
 }
 
+object SortAlgorhitm {
+  def check[T](a: Array[T])(implicit toOrdered: T => Ordered[T]): Boolean = {
+    val sorter = new ShellSortArraySequence[T]()
+    sorter.sort(a)
+
+    !sorter.isExchanged
+  }
+}

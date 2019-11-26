@@ -6,9 +6,11 @@ import scala.collection.mutable
 
 class ShellSortArraySequence[T](implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] {
   var compares = 0
+  var isExchanged = false
 
   override def sort(a: Array[T]): Unit = {
     compares = 0
+    isExchanged = false
     val n = a.length
 
     val arrayBuffer= mutable.Buffer[Int]()
@@ -32,6 +34,10 @@ class ShellSortArraySequence[T](implicit protected val toOrdered: T => Ordered[T
     }
   }
 
+  override protected def exch(a: Array[T], i: Int, j: Int): Unit = {
+    isExchanged = true
+    super.exch(a, i, j)
+  }
 
   override protected def less(a: T, b: T): Boolean = {
     compares += 1
