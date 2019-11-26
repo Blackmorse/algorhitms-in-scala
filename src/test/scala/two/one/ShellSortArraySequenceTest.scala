@@ -4,6 +4,6 @@ import org.scalatest.FunSuite
 
 class ShellSortArraySequenceTest extends SortAlgorhitmTest {
   before {
-    sorter = new ShellSortArraySequence[Int]()
+    sorter = new ShellSortArraySequence[Int](drawer = (a: Array[Int]) => ())
   }
 }

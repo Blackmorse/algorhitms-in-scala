@@ -9,6 +9,8 @@ abstract class SortAlgorhitmTest extends FunSuite with BeforeAndAfter {
   test("test simple") {
     val a = Array(3, 5,1,0, 7, 9)
     sorter.sort(a)
+    a.foreach(println)
+
     assert(a sameElements Array(0, 1, 3, 5, 7, 9))
     assert(sorter.isSorted(a))
   }

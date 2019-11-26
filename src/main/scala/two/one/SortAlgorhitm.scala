@@ -1,6 +1,7 @@
 package two.one
 
 trait SortAlgorhitm[T] {
+  val drawer: ADrawer[T]
   implicit protected val toOrdered: T => Ordered[T]
 
   def sort(a: Array[T]): Unit
@@ -28,7 +29,7 @@ trait SortAlgorhitm[T] {
 
 object SortAlgorhitm {
   def check[T](a: Array[T])(implicit toOrdered: T => Ordered[T]): Boolean = {
-    val sorter = new ShellSortArraySequence[T]()
+    val sorter = new ShellSortArraySequence[T](drawer = (a: Array[T]) => ())
     sorter.sort(a)
 
     !sorter.isExchanged

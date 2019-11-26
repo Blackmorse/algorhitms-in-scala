@@ -4,7 +4,7 @@ import edu.princeton.cs.algs4.StdRandom
 
 import scala.collection.mutable
 
-class ShellSortArraySequence[T](implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] {
+class ShellSortArraySequence[T](override val drawer: ADrawer[T] = (a: Array[T]) => ())(implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] {
   var compares = 0
   var isExchanged = false
 
@@ -24,6 +24,7 @@ class ShellSortArraySequence[T](implicit protected val toOrdered: T => Ordered[T
     val sequence = arrayBuffer.toArray.reverse
 
     for (h <- sequence) {
+      drawer.draw(a)
       for (i <- h until n) {
         var j = i
         while (j >= h && less(a(j), a(j -h ))) {
@@ -48,7 +49,7 @@ class ShellSortArraySequence[T](implicit protected val toOrdered: T => Ordered[T
 object ShellSortArraySequence {
   def main(args: Array[String]): Unit = {
 
-    val sorter = new ShellSortArraySequence[Double]()
+    val sorter = new ShellSortArraySequence[Double](drawer = (a: Array[Double]) => ())
 
 
 
