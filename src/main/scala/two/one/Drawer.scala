@@ -2,7 +2,7 @@ package two.one
 
 import java.util.concurrent.TimeUnit
 
-import edu.princeton.cs.algs4.{StdDraw, StdRandom}
+import edu.princeton.cs.algs4.{StdDraw, StdRandom, Transaction}
 
 abstract class ADrawer[T] {
   def draw(a: Array[T])
@@ -57,3 +57,4 @@ object Drawer {
     sorter.sort(a)
   }
 }
+
