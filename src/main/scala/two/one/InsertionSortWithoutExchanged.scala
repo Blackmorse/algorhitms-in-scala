@@ -1,6 +1,7 @@
 package two.one
 
-class InsertionSortWithoutExchanged[T](override val drawer: ADrawer[T] = (a: Array[T]) => ())(override implicit protected val toOrdered: T => Ordered[T])  extends SortAlgorhitm [T]{
+class InsertionSortWithoutExchanged[T](override val drawer: ADrawer[T] = (a: Array[T]) => ())(override implicit protected val toOrdered: T => Ordered[T])
+  extends SortAlgorhitm [T] with Drawable [T]{
   override def sort(a: Array[T]): Unit = {
     val n = a.length
     for(i <- 1 until n) {

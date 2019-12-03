@@ -3,7 +3,7 @@ package two.one
 import scala.collection.mutable
 
 trait SortAlgorhitm[T] {
-  val drawer: ADrawer[T]
+//  val drawer: ADrawer[T]
   implicit protected val toOrdered: T => Ordered[T]
 
   def sort(a: Array[T]): Unit

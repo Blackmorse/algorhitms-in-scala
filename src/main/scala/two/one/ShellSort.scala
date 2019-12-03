@@ -1,6 +1,6 @@
 package two.one
 
-class ShellSort[T](override val drawer: ADrawer[T] = (a: Array[T]) => ())(implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] {
+class ShellSort[T](override val drawer: ADrawer[T] = (a: Array[T]) => ())(implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] with  Drawable[T] {
 
   override def sort(a: Array[T]): Unit = {
     val n = a.length

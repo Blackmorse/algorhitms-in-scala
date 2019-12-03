@@ -6,7 +6,7 @@ import scala.collection.mutable
 
 
 class ShellSortArraySequence[T](override val drawer: ADrawer[T] = (a: Array[T]) => (),
-                                seq: Seq[Int])(implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] {
+                                seq: Seq[Int])(implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] with Drawable[T] {
   var compares = 0
   var isExchanged = false
 

@@ -1,6 +1,7 @@
 package two.one
 
-class InsertionSortWithSentinel[T](override val drawer: ADrawer[T] = (a: Array[T]) => ())(override implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] {
+class InsertionSortWithSentinel[T](override val drawer: ADrawer[T] = (a: Array[T]) => ())(override implicit protected val toOrdered: T => Ordered[T])
+  extends SortAlgorhitm[T] with Drawable[T] {
   override def sort(a: Array[T]): Unit = {
     val n = a.length
     var minIndex = 0
