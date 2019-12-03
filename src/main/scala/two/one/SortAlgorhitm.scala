@@ -1,5 +1,7 @@
 package two.one
 
+import scala.collection.mutable
+
 trait SortAlgorhitm[T] {
   val drawer: ADrawer[T]
   implicit protected val toOrdered: T => Ordered[T]
@@ -29,7 +31,15 @@ trait SortAlgorhitm[T] {
 
 object SortAlgorhitm {
   def check[T](a: Array[T])(implicit toOrdered: T => Ordered[T]): Boolean = {
-    val sorter = new ShellSortArraySequence[T](drawer = (a: Array[T]) => ())
+
+    var h = 1
+    var buf = mutable.Buffer[Int]()
+    while(h > 0)  {
+      h = 3 * h + 1
+      buf += h
+    }
+
+    val sorter = new ShellSortArraySequence[T](drawer = (a: Array[T]) => (), seq = buf.toSeq)
     sorter.sort(a)
 
     !sorter.isExchanged
