@@ -26,7 +26,7 @@ object DoublingTest {
       println(s"$n: $time. x$diff")
       data += ((n, time))
 
-      if (i >= 2) draw(scaleData(data.toSeq, logPlot))
+      if (i >= 2) drawScaled(scaleData(data.toSeq, logPlot))
       n += n
       previousTime = Some(time)
     }
@@ -35,6 +35,10 @@ object DoublingTest {
   def main(args: Array[String]): Unit = {
     doTest(250, 9, ThreeSum.count, true)
     println("---end----")
+  }
+
+  def draw(data: Seq[(Int, Double)], log: Boolean = false): Unit =  {
+    drawScaled(scaleData(data, log))
   }
 
   private def scaleData(data: Seq[(Int, Double)], logPlot: Boolean = false): Seq[(Double, Double)] = {
@@ -54,7 +58,7 @@ object DoublingTest {
     drawScaled.map{case(x, y) => (x + 0.05, y + 0.05)}
   }
 
-  private def draw(data: Seq[(Double, Double)]) ={
+  private def drawScaled(data: Seq[(Double, Double)]) ={
     StdDraw.clear()
 
     StdDraw.setPenRadius()
