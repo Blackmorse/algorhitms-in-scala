@@ -4,6 +4,6 @@ import org.scalatest.FunSuite
 
 class InsertionSortTest extends SortAlgorhitmTest {
   before{
-    sorter = new InsertionSort[Int](drawer = (a: Array[Int]) => ())
+    sorter = new InsertionSort[Int]
   }
 }

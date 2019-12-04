@@ -1,12 +1,11 @@
 package two.one
 
-class ShellSort[T](override val drawer: ADrawer[T] = (a: Array[T]) => ())(implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] with  Drawable[T] {
+class ShellSort[T](implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T]{
 
   override def sort(a: Array[T]): Unit = {
     val n = a.length
     var h = 1
     while(h < n / 3) h = 3 * h + 1
-    drawer.draw(a)
     while( h >= 1) {
 
       for (i <- h until n) {
@@ -17,7 +16,6 @@ class ShellSort[T](override val drawer: ADrawer[T] = (a: Array[T]) => ())(implic
         }
 
       }
-      drawer.draw(a)
       h /= 3
     }
   }
@@ -25,7 +23,7 @@ class ShellSort[T](override val drawer: ADrawer[T] = (a: Array[T]) => ())(implic
 
 object ShellSort {
   def main(args: Array[String]): Unit = {
-    val sorter = new ShellSort[Int](drawer = (a: Array[Int]) => ())
+    val sorter = new ShellSort[Int]
 
     val a = Array(1,7,2,4,5,9,20,3)
 

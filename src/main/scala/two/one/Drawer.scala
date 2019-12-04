@@ -49,12 +49,6 @@ class Drawer extends ADrawer[Double] {
 
 object Drawer {
   def main(args: Array[String]): Unit = {
-    val a = 1.to(100).map(_ => StdRandom.uniform()).toArray
-
-    val d = new Drawer()
-
-    val sorter = new ShellSort[Double](drawer = d)
-    sorter.sort(a)
   }
 }
 
