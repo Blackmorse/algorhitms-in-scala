@@ -5,10 +5,10 @@ import two.one.{InsertionSort, SelectionSort, ShellSort, SortAlgorhitm}
 import scala.collection.mutable
 
 object DoublingTest {
-  def test(algorhitm: SortAlgorhitm[Double], n: Int = 1000,
+  def test[T](algorhitm: SortAlgorhitm[T], n: Int = 1000,
            t: Int = 10,
            attempts: Int = 10,
-           arrayGenerator: ArrayGenerator = UniformArrayGenerator) = {
+           arrayGenerator: ArrayGenerator[T]) (implicit toOrdered: T => Ordered[T]) = {
 
     var N = n
 
