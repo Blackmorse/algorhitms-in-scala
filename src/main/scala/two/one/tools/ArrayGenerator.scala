@@ -150,3 +150,58 @@ object GeometricArrayGenerator extends ArrayGenerator {
   override def name: String = "GeometricArrayGenerator"
 }
 
+object LastPercentUnsortedArrayGenerator extends ArrayGenerator {
+  val sorter = new ShellSort[Double]()
+
+  override def generate(n: Int): Array[Double] = {
+    val a = Array.fill(n)(StdRandom.uniform())
+    val lastRandoms = (n * 0.95).toInt
+    sorter.sort(a)
+    for (i <- n - lastRandoms - 1 until n) a(i) = StdRandom.uniform()
+
+    a
+  }
+
+  override def name: String = "LastPercentUnsorted"
+}
+
+object SortedExcept10ArrayGenerator extends ArrayGenerator {
+  override def generate(n: Int): Array[Double] = {
+    val a = Array.fill(n)(StdRandom.uniform())
+    val sorter = new ShellSort[Double]()
+    sorter.sort(a)
+
+    for (_ <- 1 to 5) {
+      val index1 = StdRandom.uniform(n)
+      val index2 = StdRandom.uniform(n)
+
+      val t = a(index1)
+      a(index1) = a(index2)
+      a(index2) = t
+    }
+
+    a
+  }
+
+  override def name: String = "SortedExcept10ArrayGenerator"
+}
+
+object SortedExcept5PercentArrayGenerator extends ArrayGenerator {
+  override def generate(n: Int): Array[Double] =  {
+    val a = Array.fill(n)(StdRandom.uniform())
+
+    val sorter = new ShellSort[Double]()
+    sorter.sort(a)
+
+    val unsorted = (n * 0.95).toInt
+
+    for (_ <- 1 to unsorted) {
+      val index = StdRandom.uniform(n)
+      a(index) = StdRandom.uniform()
+    }
+
+    a
+  }
+
+  override def name: String = "SortedExcept5PercentArrayGenerator"
+}
