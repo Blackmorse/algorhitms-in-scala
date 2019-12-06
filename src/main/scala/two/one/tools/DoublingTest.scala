@@ -43,6 +43,6 @@ object DoublingTest {
 
 
   def main(args: Array[String]): Unit = {
-    test(algorhitm = new SelectionSort[Double](), arrayGenerator = UniformArrayGenerator)
+    test(algorhitm = new InsertionSort[Double](), arrayGenerator = UniformArrayGenerator, t = 5)
   }
 }

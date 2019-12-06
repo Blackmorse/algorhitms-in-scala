@@ -132,3 +132,21 @@ object HalfZeroArrayGenerator extends ArrayGenerator {
   override def name: String = "HalfZeroArrayGenerator"
 }
 
+object GaussianArrayGenerator extends ArrayGenerator {
+  override def generate(n: Int): Array[Double] = Array.fill(n)(StdRandom.gaussian())
+
+  override def name: String = "GaussianArrayGenerator"
+}
+
+object PoissonArrayGenerator extends ArrayGenerator {
+  override def generate(n: Int): Array[Double] = Array.fill(n)(StdRandom.poisson(10))
+
+  override def name: String = "PoissonArrayGenerator"
+}
+
+object GeometricArrayGenerator extends ArrayGenerator {
+  override def generate(n: Int): Array[Double] = Array.fill(n)(StdRandom.geometric(0.5))
+
+  override def name: String = "GeometricArrayGenerator"
+}
+
