@@ -8,7 +8,8 @@ object DoublingTest {
   def test[T](algorhitm: SortAlgorhitm[T], n: Int = 1000,
            t: Int = 10,
            attempts: Int = 10,
-           arrayGenerator: ArrayGenerator[T]) (implicit toOrdered: T => Ordered[T]) = {
+           arrayGenerator: ArrayGenerator[T],
+              draw: Boolean = true) (implicit toOrdered: T => Ordered[T]) = {
 
     var N = n
 
@@ -28,8 +29,7 @@ object DoublingTest {
       val time = totalTime.toDouble / t
 
       data += ((N, time))
-
-      one.four.DoublingTest.draw(data.toSeq)
+      if (draw) one.four.DoublingTest.draw(data.toSeq)
 
       val timeRatio = if (previousTime == Double.NaN) Double.NaN else time / previousTime
 
@@ -43,6 +43,10 @@ object DoublingTest {
 
 
   def main(args: Array[String]): Unit = {
-    test(algorhitm = new ShellSort[Double](), arrayGenerator = SortedExcept5PercentArrayGenerator, t = 5)
+//    test(algorhitm = new ShellSort[Double](), arrayGenerator = UniformArrayGenerator, draw = false)
+
+    implicit  val ord = DoubleArrayStringGenerator.toOrdered
+
+    test(algorhitm = new ShellSort[(Double, Array[String])], arrayGenerator = DoubleArrayStringGenerator, draw = false)
   }
 }

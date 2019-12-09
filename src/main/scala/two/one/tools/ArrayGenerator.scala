@@ -1,29 +1,25 @@
 package two.one.tools
 
+import java.util.UUID
+
 import edu.princeton.cs.algs4.StdRandom
 import two.one.ShellSort
 
 import scala.collection.mutable
 
 trait ArrayGenerator[T] {
-  implicit protected val toOrdered: T => Ordered[T]
+  implicit  val toOrdered: T => Ordered[T]
   def generate(n: Int): Array[T]
-
-  def name: String
 }
 
 trait DoubleArrayGenerator extends ArrayGenerator[Double] {
-  override implicit protected val toOrdered: Double => Ordered[Double] = {
+  override implicit  val toOrdered: Double => Ordered[Double] = {
     d => (that: Double) => d.compareTo(that)
   }
 }
 
 object UniformArrayGenerator extends DoubleArrayGenerator {
   override def generate(n: Int): Array[Double] = Array.fill(n)(StdRandom.uniform())
-
-  override def name: String = "UniformArrayGenerator"
-
-  
 }
 
 object SortedArrayGenerator extends DoubleArrayGenerator {
@@ -33,8 +29,6 @@ object SortedArrayGenerator extends DoubleArrayGenerator {
     sorter.sort(array)
     array
   }
-
-  override def name: String = "SortedArrayGenerator"
 }
 
 object ReverseOrderArrayGenerator extends DoubleArrayGenerator {
@@ -45,8 +39,6 @@ object ReverseOrderArrayGenerator extends DoubleArrayGenerator {
     sorter.sort(array)
     array.reverse
   }
-
-  override def name: String = "ReverseOrderArrayGenerator"
 }
 
 object SameElementsArrayGenerator extends DoubleArrayGenerator {
@@ -54,8 +46,6 @@ object SameElementsArrayGenerator extends DoubleArrayGenerator {
     val element = StdRandom.uniform()
     Array.fill(n)(element)
   }
-
-  override def name: String = "SameElementsArrayGenerator"
 }
 
 object TwoElementsArrayGenerator extends DoubleArrayGenerator {
@@ -65,22 +55,16 @@ object TwoElementsArrayGenerator extends DoubleArrayGenerator {
 
     Array.fill(n)(if(StdRandom.bernoulli()) el1 else el2)
   }
-
-  override def name: String = "TwoElementsArrayGenerator"
 }
 
 object NoElementsArrayGenerator extends DoubleArrayGenerator {
   override def generate(n: Int): Array[Double] = {
     Array[Double]()
   }
-
-  override def name: String = "NoElementsArrayGenerator"
 }
 
 object OneElementSizeArrayGenerator extends DoubleArrayGenerator {
   override def generate(n: Int): Array[Double] = Array(StdRandom.uniform())
-
-  override def name: String = "OneElementArrayGenerator"
 }
 
 object ZeroOneArrayGenerator extends DoubleArrayGenerator {
@@ -90,8 +74,6 @@ object ZeroOneArrayGenerator extends DoubleArrayGenerator {
     StdRandom.shuffle(a)
     a
   }
-
-  override def name: String = "ZeroOneArrayGenerator"
 }
 
 object IntSequenceArrayGenerator extends DoubleArrayGenerator {
@@ -111,8 +93,6 @@ object IntSequenceArrayGenerator extends DoubleArrayGenerator {
     StdRandom.shuffle(array)
     array
   }
-
-  override def name: String = "IntSequenceArrayGenerator"
 }
 
 object HalfZeroArrayGenerator extends DoubleArrayGenerator {
@@ -124,26 +104,18 @@ object HalfZeroArrayGenerator extends DoubleArrayGenerator {
     StdRandom.shuffle(a)
     a
   }
-
-  override def name: String = "HalfZeroArrayGenerator"
 }
 
 object GaussianArrayGenerator extends DoubleArrayGenerator {
   override def generate(n: Int): Array[Double] = Array.fill(n)(StdRandom.gaussian())
-
-  override def name: String = "GaussianArrayGenerator"
 }
 
 object PoissonArrayGenerator extends DoubleArrayGenerator {
   override def generate(n: Int): Array[Double] = Array.fill(n)(StdRandom.poisson(10))
-
-  override def name: String = "PoissonArrayGenerator"
 }
 
 object GeometricArrayGenerator extends DoubleArrayGenerator {
   override def generate(n: Int): Array[Double] = Array.fill(n)(StdRandom.geometric(0.5))
-
-  override def name: String = "GeometricArrayGenerator"
 }
 
 object LastPercentUnsortedArrayGenerator extends DoubleArrayGenerator {
@@ -157,8 +129,6 @@ object LastPercentUnsortedArrayGenerator extends DoubleArrayGenerator {
 
     a
   }
-
-  override def name: String = "LastPercentUnsorted"
 }
 
 object SortedExcept10ArrayGenerator extends DoubleArrayGenerator {
@@ -178,8 +148,6 @@ object SortedExcept10ArrayGenerator extends DoubleArrayGenerator {
 
     a
   }
-
-  override def name: String = "SortedExcept10ArrayGenerator"
 }
 
 object SortedExcept5PercentArrayGenerator extends DoubleArrayGenerator {
@@ -198,6 +166,34 @@ object SortedExcept5PercentArrayGenerator extends DoubleArrayGenerator {
 
     a
   }
+}
 
-  override def name: String = "SortedExcept5PercentArrayGenerator"
+object StringDoubleKeyArrayGenerator extends ArrayGenerator[(String, Double)]{
+  override implicit  val toOrdered: ((String, Double)) => Ordered[(String, Double)] = {case (s, d) =>
+    (that: (String, Double)) => s.compareTo(that._1)
+  }
+
+  override def generate(n: Int): Array[(String, Double)] = {
+    Array.fill(n)((UUID.randomUUID().toString, StdRandom.uniform()))
+  }
+}
+
+object DoubleArrayStringGenerator extends ArrayGenerator[(Double, Array[String])] {
+  override implicit  val toOrdered: ((Double, Array[String])) => Ordered[(Double, Array[String])] = {case(d, ar) =>
+    (that: (Double, Array[String])) => d.compareTo(that._1)
+  }
+
+  override def generate(n: Int): Array[(Double, Array[String])] = {
+    Array.fill(n)((StdRandom.uniform(), Array.fill(10)(UUID.randomUUID().toString)))
+  }
+}
+
+object IntKeyIntArrayGenerator extends ArrayGenerator[(Int, Array[Int])] {
+  override implicit val toOrdered: ((Int, Array[Int])) => Ordered[(Int, Array[Int])] = {case(i, ar) =>
+    (that: (Int, Array[Int])) => i.compareTo(that._1)
+  }
+
+  override def generate(n: Int): Array[(Int, Array[Int])] = {
+    Array.fill(n)((StdRandom.uniform(Int.MinValue, Int.MaxValue), Array.fill(20)(StdRandom.uniform(Int.MinValue, Int.MaxValue))))
+  }
 }
