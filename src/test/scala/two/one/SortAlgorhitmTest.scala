@@ -16,7 +16,8 @@ abstract class SortAlgorhitmTest extends FunSuite with BeforeAndAfter {
   }
 
   test("test Random") {
-    val a = Array.fill(100)(0)
+    val n = StdRandom.uniform(50, 2100)
+    val a = Array.fill(n)(0)
     for  (i <- a.indices) a(i) = StdRandom.uniform(1000000)
 
     sorter.sort(a)
