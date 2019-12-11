@@ -4,7 +4,7 @@ import edu.princeton.cs.algs4.StdRandom
 
 import scala.reflect.ClassTag
 
-class BottomUpMergeSort[T: ClassTag](override implicit protected val toOrdered: T => Ordered[T]) extends MergeSort[T] {
+class BottomUpMergeSort[T: ClassTag](override implicit protected val toOrdered: T => Ordered[T]) extends MergeSort[T] with CopyMerger[T] {
   override def sort(a: Array[T]): Unit = {
     val n = a.length
     var step = 1

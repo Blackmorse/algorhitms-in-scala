@@ -2,7 +2,7 @@ package two.two
 
 import scala.reflect.ClassTag
 
-class TopDownMergeSort[T: ClassTag](override implicit protected val toOrdered: T => Ordered[T]) extends MergeSort[T] {
+class TopDownMergeSort[T: ClassTag](override implicit protected val toOrdered: T => Ordered[T]) extends MergeSort[T] with CopyMerger[T] {
   override def sort(a: Array[T]): Unit = {
     val copy = Array.fill[T](a.length)(null.asInstanceOf[T])
     sort(0, a.length - 1, a, copy)
