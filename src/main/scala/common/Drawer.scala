@@ -27,14 +27,20 @@ class Plot {
   private val charts = mutable.Buffer[Chart]()
 
   private var logPlot = false
+  private var drawDots = true
 
   def addChart(data: Seq[(Double, Double)], color: Color): Plot = {
     charts += Chart(data, color)
     this
   }
 
-  def log(b: Boolean): Plot = {
+  def log(b: Boolean = true): Plot = {
     logPlot = b
+    this
+  }
+
+  def dots(b: Boolean = false): Plot = {
+    drawDots = b
     this
   }
 
@@ -73,8 +79,11 @@ class Plot {
     }
 
     StdDraw.setPenRadius(0.01d)
-    for (point <- data) {
-      StdDraw.point(point._1, point._2)
+
+    if (drawDots) {
+      for (point <- data) {
+          StdDraw.point(point._1, point._2)
+      }
     }
   }
 }

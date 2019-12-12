@@ -5,6 +5,6 @@ import two.one.SortAlgorhitmTest
 
 class TopDownMergeSortTest extends SortAlgorhitmTest {
   before {
-    sorter = new TopDownMergeSort[Int]
+    sorter = new TopDownMergeSort[Int] with CopyMerger[Int]
   }
 }
