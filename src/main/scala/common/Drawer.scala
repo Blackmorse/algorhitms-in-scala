@@ -6,20 +6,20 @@ import edu.princeton.cs.algs4.StdDraw
 
 import scala.collection.mutable
 
-case class Chart(data: Seq[(Double, Double)], color: Color) {
+case class Chart(data: Seq[(Double, Double)], color: Color, name: String) {
   def scale(maxX: Double, minX: Double, maxY: Double, minY: Double) : Chart = {
     val data = this.data
       .map{case (x,y) =>((x - minX) * 0.9 / (maxX - minX), (y - minY) * 0.9 / (maxY - minY))}
       .map{case (x, y) => (x + 0.05, y + 0.05)}
 
-    Chart(data, color)
+    Chart(data, color, name)
   }
 
   def log(): Chart = {
     val data = this.data
       .map{case (x, y) =>  (Math.log(1 + x), Math.log(y)) }
 
-    Chart(data, color)
+    Chart(data, color, name)
   }
 }
 
@@ -29,8 +29,8 @@ class Plot {
   private var logPlot = false
   private var drawDots = true
 
-  def addChart(data: Seq[(Double, Double)], color: Color): Plot = {
-    charts += Chart(data, color)
+  def addChart(data: Seq[(Double, Double)], color: Color, name: String = ""): Plot = {
+    charts += Chart(data, color, name)
     this
   }
 
@@ -58,15 +58,21 @@ class Plot {
 
     StdDraw.setPenRadius()
 
-    if (minY < 0) {
-      val y = -minY * 0.9 / (maxY - minY) + 0.05
-      StdDraw.line(0d, y, 1d, y)
-    } else {
-      StdDraw.line(0d, 0.025d, 1d, 0.025d)
-    }
+    val y = if (minY < 0) -minY * 0.9 / (maxY - minY) + 0.05 else 0.025
+
+    StdDraw.line(0d, y, 1d, y)
+
     StdDraw.line(0.025d, 0, 0.025d, 1d)
 
+    StdDraw.setPenRadius(0.01)
+    StdDraw.point(0.95, y)
+    StdDraw.text(0.95, y - 0.018, maxX.toString)
+
+    StdDraw.point(0.025, 0.95)
+    StdDraw.text(0.08, 0.95, maxY.toString)
+
     scaledCharts.foreach(drawChart)
+    drawLegend(scaledCharts.toSeq)
   }
 
   private def drawChart(chart: Chart): Unit = {
@@ -86,15 +92,26 @@ class Plot {
       }
     }
   }
+
+  private def drawLegend(charts: Seq[Chart]) = {
+    for (i <- charts.indices if charts(i).name != "") {
+      val chart = charts(i)
+      StdDraw.setPenRadius()
+      StdDraw.setPenColor(chart.color)
+      StdDraw.line(0.03 + 0.2 * i , 0.012d, 0.03 + 0.05 + 0.2 * i , 0.012d)
+
+      StdDraw.text(0.03 + 0.05 + 0.05 + 0.2 * i, 0.012d, chart.name)
+    }
+  }
 }
 
 object Drawer {
   def main(args: Array[String]): Unit = {
-    val data = 1.to(20).map(i => (i.toDouble, i.toDouble))
+    val data = 1.to(20).map(i => (i.toDouble, 5 * i.toDouble))
 
-    val data2 = 1.to(20).map(i => (i.toDouble, -i.toDouble))
-    new Plot().addChart(data, Color.BLACK)
-      .addChart(data2, Color.RED)
+    val data2 = 1.to(20).map(i => (i.toDouble, 15 * i.toDouble))
+    new Plot().addChart(data, Color.BLACK, "black")
+      .addChart(data2, Color.RED, "red")
 //      .log(true)
       .draw
   }
