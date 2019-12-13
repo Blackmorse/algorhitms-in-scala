@@ -55,7 +55,7 @@ class Plot {
     val scaledCharts = charts.map(chart => chart.scale(maxX, minX, maxY, minY))
 
     StdDraw.clear()
-
+    StdDraw.setPenColor(Color.BLACK)
     StdDraw.setPenRadius()
 
     val y = if (minY < 0) -minY * 0.9 / (maxY - minY) + 0.05 else 0.025

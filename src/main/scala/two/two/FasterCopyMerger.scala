@@ -15,7 +15,7 @@ trait FasterCopyMerger[T] extends Merger[T] {
     var rightIndex = hi
 
     ind = lo
-    for (i <- lo to hi) {
+    for (_ <- lo to hi) {
       if(copyArray(leftIndex) < copyArray(rightIndex)) {
         arr(ind) = copyArray(leftIndex)
         leftIndex += 1

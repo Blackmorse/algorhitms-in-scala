@@ -1,43 +1,72 @@
 package two.one.tools
 
-import two.one.{InsertionSort, SelectionSort, ShellSort, SortAlgorhitm}
+import java.awt.Color
+
+import common.{Chart, Plot}
+import two.one._
+import two.two.{BottomUpMergeSort, CopyMerger, FasterCopyMerger, TopDownMergeSort}
 
 import scala.collection.mutable
 
 object DoublingTest {
-  def test[T](algorhitm: SortAlgorhitm[T], n: Int = 1000,
+  def test[T](n: Int = 1000,
            t: Int = 10,
            attempts: Int = 10,
            arrayGenerator: ArrayGenerator[T],
-              draw: Boolean = true) (implicit toOrdered: T => Ordered[T]) = {
+              draw: Boolean = true,
+              algorhitms: Seq[SortAlgorhitm[T]])
+             (implicit toOrdered: T => Ordered[T]) = {
 
     var N = n
 
-    var previousTime: Double = Double.NaN
+    val colors = Array(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE)
 
-    val data = mutable.Buffer[(Int, Double)]()
+    val datas = Array.fill(algorhitms.length)(mutable.Buffer[(Double, Double)]())
+    val previousTimes = Array.fill(algorhitms.size)(Double.NaN)
+    for (attempt <- 1 to attempts) {
 
-    for (_ <- 1 to 10) {
+      println(s"attempt: $attempt")
+      val arrays = 1.to(t).map(_ => arrayGenerator.generate(N))
 
-      val totalTime = 1.to(t).map(_ => {
-        val a = arrayGenerator.generate(N)
-        val t1 = System.currentTimeMillis()
-        algorhitm.sort(a)
-        System.currentTimeMillis() - t1
-      }).sum
+      for (algor <- algorhitms.indices) {
+        val algorhitm = algorhitms(algor)
 
-      val time = totalTime.toDouble / t
+        val totalTime = arrays.map(a => {
+//          val a = arrayGenerator.generate(N)
+          val t1 = System.currentTimeMillis()
+          algorhitm.sort(a)
+          System.currentTimeMillis() - t1
+        }).sum
 
-      data += ((N, time))
-      if (draw) one.four.DoublingTest.draw(data.toSeq)
+        val time = totalTime.toDouble / t
 
-      val timeRatio = if (previousTime == Double.NaN) Double.NaN else time / previousTime
+        val data = datas(algor)
+        data += ((N, time))
 
-      println(s"n: $N. time: $time. Ratio: $timeRatio")
+        val timeRatio = if (previousTimes(algor) == Double.NaN) Double.NaN else time / previousTimes(algor)
 
-      previousTime = time
+        println(s"n: $N. time: $time. Ratio: $timeRatio")
+
+        previousTimes(algor) = time
+
+      }
+
+      if (draw) {
+        val values = algorhitms.zipAll(colors, null, Color.BLACK).zip(datas)
+        val plot = new Plot()
+        values.foreach{case((algorhitm, color), data) => plot.addChart(data.toSeq, color, algorhitm.getClass.getSimpleName)}
+        plot.dots(true)
+        plot.draw
+      }
+
+
+      println("------")
       N *= 2
     }
+
+
+
+
     println("end")
   }
 
@@ -45,8 +74,13 @@ object DoublingTest {
   def main(args: Array[String]): Unit = {
 //    test(algorhitm = new ShellSort[Double](), arrayGenerator = UniformArrayGenerator, draw = false)
 
-    implicit  val ord = DoubleArrayStringGenerator.toOrdered
+//    implicit  val ord = DoubleArrayStringGenerator.toOrdered
 
-    test(algorhitm = new ShellSort[(Double, Array[String])], arrayGenerator = DoubleArrayStringGenerator, draw = false)
+    test(n = 1000, t = 20, attempts = 15, arrayGenerator = UniformArrayGenerator, draw = true, algorhitms =
+      Seq(new TopDownMergeSort[Double]() with CopyMerger[Double],
+        new TopDownMergeSort[Double]() with FasterCopyMerger[Double],
+      new BottomUpMergeSort[Double]() with CopyMerger[Double],
+      new BottomUpMergeSort[Double]() with FasterCopyMerger[Double]
+    ) )
   }
 }
