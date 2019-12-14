@@ -4,7 +4,8 @@ import java.awt.Color
 
 import common.{Chart, Plot}
 import two.one._
-import two.two.{BottomUpMergeSort, CopyMerger, FasterCopyMerger, TopDownMergeSort}
+import two.two._
+import two.two.improved.{ImprovedMergeSort, ImprovedMergeSortWithInsertion, ImprovedMerger, ImprovedMergerWithComparsion}
 
 import scala.collection.mutable
 
@@ -33,8 +34,9 @@ object DoublingTest {
 
         val totalTime = arrays.map(a => {
 //          val a = arrayGenerator.generate(N)
+          val arr = a.clone()
           val t1 = System.currentTimeMillis()
-          algorhitm.sort(a)
+          algorhitm.sort(arr)
           System.currentTimeMillis() - t1
         }).sum
 
@@ -72,15 +74,14 @@ object DoublingTest {
 
 
   def main(args: Array[String]): Unit = {
-//    test(algorhitm = new ShellSort[Double](), arrayGenerator = UniformArrayGenerator, draw = false)
 
-//    implicit  val ord = DoubleArrayStringGenerator.toOrdered
 
-    test(n = 1000, t = 20, attempts = 15, arrayGenerator = UniformArrayGenerator, draw = true, algorhitms =
-      Seq(new TopDownMergeSort[Double]() with CopyMerger[Double],
-        new TopDownMergeSort[Double]() with FasterCopyMerger[Double],
-      new BottomUpMergeSort[Double]() with CopyMerger[Double],
-      new BottomUpMergeSort[Double]() with FasterCopyMerger[Double]
+
+
+    test(n = 1000, t = 8, attempts = 15, arrayGenerator = UniformArrayGenerator, draw = true, algorhitms =
+      Seq(
+        new BottomUpMergeSort[Double]() with FasterCopyMerger[Double],
+        new ImprovedMergeSortWithInsertion[Double]() with ImprovedMergerWithComparsion[Double]
     ) )
   }
 }

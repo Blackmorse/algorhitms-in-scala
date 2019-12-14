@@ -1,7 +1,5 @@
 package two.two
 
-import edu.princeton.cs.algs4.StdRandom
-
 import scala.reflect.ClassTag
 
 abstract class BottomUpMergeSort[T: ClassTag](override implicit protected val toOrdered: T => Ordered[T]) extends MergeSort[T] {
@@ -9,7 +7,7 @@ abstract class BottomUpMergeSort[T: ClassTag](override implicit protected val to
     val n = a.length
     var step = 1
     val copy = Array.fill[T](a.length)(null.asInstanceOf[T])
-    while (step < n - 1) {
+    while (step <= n - 1) {
 
       var mergeBegin = 0
       while(mergeBegin + step - 1 < n - 1) {

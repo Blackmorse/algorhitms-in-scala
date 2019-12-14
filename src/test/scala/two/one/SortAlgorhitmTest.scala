@@ -9,18 +9,19 @@ abstract class SortAlgorhitmTest extends FunSuite with BeforeAndAfter {
   test("test simple") {
     val a = Array(3, 5,1,0, 7, 9)
     sorter.sort(a)
-    a.foreach(println)
 
     assert(a sameElements Array(0, 1, 3, 5, 7, 9))
     assert(sorter.isSorted(a))
   }
 
   test("test Random") {
-    val n = StdRandom.uniform(50, 2100)
-    val a = Array.fill(n)(0)
-    for  (i <- a.indices) a(i) = StdRandom.uniform(1000000)
+    for (i <- 1 to 100) {
+      val n = StdRandom.uniform(50, 2100)
+      val a = Array.fill(n)(0)
+      for (i <- a.indices) a(i) = StdRandom.uniform(1000000)
 
-    sorter.sort(a)
-    assert(sorter.isSorted(a))
+      sorter.sort(a)
+      assert(sorter.isSorted(a))
+    }
   }
 }
