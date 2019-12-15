@@ -74,10 +74,6 @@ object DoublingTest {
 
 
   def main(args: Array[String]): Unit = {
-
-
-
-
     test(n = 1000, t = 8, attempts = 15, arrayGenerator = UniformArrayGenerator, draw = true, algorhitms =
       Seq(
         new BottomUpMergeSort[Double]() with FasterCopyMerger[Double],
