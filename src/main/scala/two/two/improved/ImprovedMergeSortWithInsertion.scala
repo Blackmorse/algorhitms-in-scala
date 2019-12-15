@@ -1,5 +1,6 @@
 package two.two.improved
 
+import edu.princeton.cs.algs4.StdRandom
 import two.one.InsertionSortWithSentinelWithoutExchanges
 import two.two.MergeSort
 
@@ -38,30 +39,29 @@ abstract class ImprovedMergeSortWithInsertion[T: ClassTag](override implicit pro
 
     var mainArray = true
 
+    var mergeBegin = 0
+
+    while (mergeBegin < n) {
+      insertionSort(a, mergeBegin, Math.min(mergeBegin + 2 * step - 1, a.length - 1))
+
+      mergeBegin += step * 2
+    }
+
+    step *= 2
+
     while (step <= n - 1) {
-
-
       var mergeBegin = 0
-      while (mergeBegin < n) {
-        if (mainArray) {
-          if (step > 8) {
+
+        while (mergeBegin < n) {
+          if (mainArray) {
             merge(a, mergeBegin, mergeBegin + step - 1, mergeBegin + 2 * step - 1, copy)
-            mainArray = !mainArray
           } else {
-            insertionSort(a, mergeBegin, Math.min(mergeBegin + 2 * step - 1, a.length - 1))
-
-          }
-        } else {
-          if (step > 8) {
             merge(copy, mergeBegin, mergeBegin + step - 1, mergeBegin + 2 * step - 1, a)
-          } else {
-            insertionSort(copy, mergeBegin, Math.min(mergeBegin + 2 * step - 1, a.length - 1))
-            mainArray = !mainArray
           }
-        }
 
-        mergeBegin += 2 * step
-      }
+          mergeBegin += step * 2
+        }
+        mainArray = !mainArray
 
       step *= 2
     }
@@ -70,5 +70,4 @@ abstract class ImprovedMergeSortWithInsertion[T: ClassTag](override implicit pro
     }
 
   }
-
 }
