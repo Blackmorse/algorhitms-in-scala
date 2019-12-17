@@ -8,7 +8,6 @@ class LinkedList[T] extends Iterable[T] {
 
   var first: Node[T] = null
   var lastEl: Node[T] = null
-  val field = 1
 
   def add(value: T): Unit = {
     if (first == null) {
