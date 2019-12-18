@@ -1,6 +1,5 @@
 package two.two
 
-import edu.princeton.cs.algs4.StdRandom
 import one.three.{LinkedList, Node}
 
 class LinkedListNaturalMergeSort[T](implicit protected val toOrdered: T => Ordered[T]) {

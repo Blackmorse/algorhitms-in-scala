@@ -2,7 +2,9 @@ package one.three
 
 import scala.annotation.tailrec
 
-case class Node[T](var value: T, var next: Node[T])
+case class Node[T](var value: T, var next: Node[T]) {
+  override def toString: String = s"$value"
+}
 
 class LinkedList[T] extends Iterable[T] {
 
