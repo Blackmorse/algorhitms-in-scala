@@ -21,7 +21,8 @@ object BinarySearch {
     println(s"counter: ${counter.tally()}")
   }
 
-  def rank(key: Int, a: Array[Int], low: Int = 0, high: Int = 0, counter: Counter = new Counter("")): Int = {
+  def rank[T](key: T, a: Array[T], low: Int = 0, high: Int = 0, counter: Counter = new Counter(""))
+             (implicit ord: T => Ordered[T]): Int = {
     var lo = low
     var hi = if(high == 0) a.length - 1 else high
     while (lo <= hi) {
