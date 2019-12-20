@@ -1,5 +1,7 @@
 package two.two
 
+import two.one.tools.{DoublingTest, UniformArrayGenerator}
+
 import scala.reflect.ClassTag
 
 abstract class TopDownMergeSort[T: ClassTag](override implicit protected val toOrdered: T => Ordered[T]) extends MergeSort[T]  {
@@ -14,5 +16,14 @@ abstract class TopDownMergeSort[T: ClassTag](override implicit protected val toO
     sort(lo, mid, a, copy)
     sort(mid + 1, hi, a, copy)
     merge(a, lo, mid, hi, copy)
+  }
+}
+
+object TopDownMergeSort {
+  def main(args: Array[String]): Unit = {
+    DoublingTest.test(arrayGenerator = UniformArrayGenerator, attempts = 15, algorhitms = Seq(
+      new TopDownMergeSort[Double]() with CopyMerger[Double],
+      new BottomUpMergeSort[Double]() with CopyMerger[Double]
+    ))
   }
 }
