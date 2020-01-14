@@ -12,11 +12,11 @@ class InsertionSortWithSentinel[T](override implicit protected val toOrdered: T 
         minIndex = i
       }
     }
-    exch(a, 0, minIndex)
+    SortAlgorhitm.exch(a, 0, minIndex)
 
     for (i <- 1 until n) {
       var j = i
-      while(less(a(j), a(j-1))) { exch(a, j, j-1); j-=1}
+      while(less(a(j), a(j-1))) { SortAlgorhitm.exch(a, j, j-1); j-=1}
     }
   }
 }

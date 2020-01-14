@@ -1,9 +1,5 @@
 package two.three
 
-import java.util
-import java.util.Collections
-
-import edu.princeton.cs.algs4.StdRandom
 import help.Helper
 import two.one.SortAlgorhitm
 import two.one.tools.{DoublingTest, UniformArrayGenerator}
@@ -35,9 +31,9 @@ class QuickSort[T: ClassTag](override implicit protected val toOrdered: T => Ord
       while(!break && {left += 1; a(left) < v}) if (left >= hi) break = true
       while({right -=1 ;a(right) > v}) if (right <= left) break = true
       if(left >= right) break = true
-      if(!break) exch(a, left, right)
+      if(!break) SortAlgorhitm.exch(a, left, right)
     }
-    exch(a, lo, right)
+    SortAlgorhitm.exch(a, lo, right)
     right
   }
 }

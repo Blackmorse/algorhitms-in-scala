@@ -99,7 +99,22 @@ object HalfZeroArrayGenerator extends DoubleArrayGenerator {
   override def generate(n: Int): Array[Double] = {
     val a = Array.fill(n)(0d)
     for (i <- 0 to n / 2) {
-      a(i) = StdRandom.uniform(Int.MinValue, Int.MaxValue).toDouble
+      a(i) = StdRandom.uniform(Double.MinValue, Double.MaxValue)
+    }
+    StdRandom.shuffle(a)
+    a
+  }
+}
+
+object PartZeroArrayGenerator {
+  def apply(part: Double) = new PartZeroArrayGenerator(part)
+}
+
+class PartZeroArrayGenerator(part: Double) extends DoubleArrayGenerator {
+  override def generate(n: Int): Array[Double] = {
+    val a = Array.fill(n)(0d)
+    for (i <- 0 to ((n * (1 - part)) - 1).toInt ) {
+      a(i) = StdRandom.uniform()
     }
     StdRandom.shuffle(a)
     a

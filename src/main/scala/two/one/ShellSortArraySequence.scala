@@ -29,9 +29,9 @@ class ShellSortArraySequence[T](override val drawer: ADrawer[T] = (a: Array[T]) 
     }
   }
 
-  override protected def exch(a: Array[T], i: Int, j: Int): Unit = {
+  protected def exch(a: Array[T], i: Int, j: Int): Unit = {
     isExchanged = true
-    super.exch(a, i, j)
+    SortAlgorhitm.exch(a, i, j)
   }
 
   override protected def less(a: T, b: T): Boolean = {

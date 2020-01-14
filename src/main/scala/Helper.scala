@@ -3,6 +3,7 @@ package help;
 import java.io.File
 
 import edu.princeton.cs.algs4.StdRandom
+import two.one.SortAlgorhitm
 
 import scala.io.Source
 
@@ -38,6 +39,29 @@ object Helper {
       a(r) = temp
 
       i += 1
+    }
+  }
+
+  def insertionSortSlice[T](array: Array[T], lo: Int, hi: Int)(implicit toOrdered: T => Ordered[T]): Unit = {
+    var minIndex = lo
+    var minValue = array(lo)
+    for (i <- lo to hi) {
+      if (array(i) < minValue) {
+        minValue = array(i)
+        minIndex = i
+      }
+    }
+    SortAlgorhitm.exch(array, lo, minIndex)
+
+    for (i <- lo + 1 to hi) {
+      var j = i
+      val el = array(i)
+      while (el < array(j - 1)) j -= 1
+
+      for (t <- j.until(i).reverse) {
+        array(t + 1) = array(t)
+      }
+      array(j) = el
     }
   }
 }

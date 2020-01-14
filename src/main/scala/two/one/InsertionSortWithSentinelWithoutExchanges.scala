@@ -13,7 +13,7 @@ class InsertionSortWithSentinelWithoutExchanges[T](override implicit protected v
         minIndex = i
       }
     }
-    exch(a, 0, minIndex)
+    SortAlgorhitm.exch(a, 0, minIndex)
 
     for (i <- 1 until n) {
       var j = i

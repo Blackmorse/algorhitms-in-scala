@@ -1,7 +1,7 @@
 package two.two.improved
 
 import edu.princeton.cs.algs4.StdRandom
-import two.one.InsertionSortWithSentinelWithoutExchanges
+import two.one.{InsertionSortWithSentinelWithoutExchanges, SortAlgorhitm}
 import two.two.MergeSort
 
 import scala.reflect.ClassTag
@@ -18,7 +18,7 @@ abstract class ImprovedMergeSortWithInsertion[T: ClassTag](override implicit pro
         minIndex = i
       }
     }
-    exch(array, lo, minIndex)
+    SortAlgorhitm.exch(array, lo, minIndex)
 
     for (i <- lo + 1 to hi) {
       var j = i

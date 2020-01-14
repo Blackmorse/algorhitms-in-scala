@@ -80,7 +80,7 @@ class SublinearExtraSpaceMergeSort[T: ClassTag](val blockSize: Int)(override imp
         minIndex = i
       }
     }
-    exch(array, lo, minIndex)
+    SortAlgorhitm.exch(array, lo, minIndex)
 
     for (i <- lo + 1 to hi) {
       var j = i

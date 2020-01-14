@@ -8,7 +8,7 @@ class SelectionSort[T](override implicit protected val toOrdered: T => Ordered[T
       for (j <- i + 1 until n) {
         if(less(a(j), a(min))) min = j
       }
-      exch(a, i, min)
+      SortAlgorhitm.exch(a, i, min)
     }
   }
 }

@@ -10,12 +10,6 @@ trait SortAlgorhitm[T] {
 
   protected def less(a: T, b: T): Boolean = a.compareTo(b) < 0
 
-  protected def exch(a: Array[T], i: Int, j: Int): Unit = {
-    val t = a(i)
-    a(i) = a(j)
-    a(j) = t
-  }
-
   protected def show(a: Array[T]): Unit = {
     a.foreach(println)
     println()
@@ -43,5 +37,11 @@ object SortAlgorhitm {
     sorter.sort(a)
 
     !sorter.isExchanged
+  }
+
+  def exch[T](a: Array[T], i: Int, j: Int): Unit = {
+    val t = a(i)
+    a(i) = a(j)
+    a(j) = t
   }
 }

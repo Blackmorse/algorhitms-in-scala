@@ -11,7 +11,7 @@ class ShellSort[T](implicit protected val toOrdered: T => Ordered[T]) extends So
       for (i <- h until n) {
         var j = i
         while (j >= h && less(a(j), a(j -h ))) {
-          exch(a, j, j-h)
+          SortAlgorhitm.exch(a, j, j-h)
           j -= h
         }
 
