@@ -25,4 +25,19 @@ object Helper {
   def distinctCartesian[T <: AnyRef](seq: Seq[T]): Seq[(T, T)] = {
     for (i <- 0 until seq.size; j <- i + 1 until seq.size) yield (seq(i), seq(j))
   }
+
+  def shuffle[T](a: Array[T]) = {
+    if (a == null) throw new IllegalArgumentException("argument array is null")
+    val n = a.length
+    var i = 0
+    while (i < n) {
+      val r = i + StdRandom.uniform(n - i)
+      // between i and n-1
+      val temp = a(i)
+      a(i) = a(r)
+      a(r) = temp
+
+      i += 1
+    }
+  }
 }
