@@ -2,6 +2,7 @@ package two.three
 
 import one.three.Stack
 import two.one.SortAlgorhitm
+import two.one.tools.{DoublingTest, UniformArrayGenerator}
 
 import scala.reflect.ClassTag
 
@@ -41,5 +42,16 @@ class NonRecursiveQuickSort [T: ClassTag](override implicit protected val toOrde
     }
     SortAlgorhitm.exch(a, lo, right)
     right
+  }
+}
+
+object NonRecursiveQuickSort {
+  def main(args: Array[String]): Unit = {
+    DoublingTest.test(draw = false, arrayGenerator = UniformArrayGenerator, n = 200000, t=3,
+      algorhitms = Seq(
+        new NonRecursiveQuickSort[Double](),
+        new QuickSort[Double]()
+      )
+    )
   }
 }
