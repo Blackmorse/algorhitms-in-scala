@@ -13,6 +13,7 @@ object DoublingTest {
   def test[T](n: Int = 1000,
            t: Int = 10,
            attempts: Int = 10,
+            multiplier: Int = 2,
            arrayGenerator: ArrayGenerator[T],
               draw: Boolean = true,
               algorhitms: Seq[SortAlgorhitm[T]])
@@ -63,7 +64,7 @@ object DoublingTest {
 
 
       println("------")
-      N *= 2
+      N *= multiplier
     }
 
 
