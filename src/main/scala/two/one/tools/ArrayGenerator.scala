@@ -14,7 +14,9 @@ trait ArrayGenerator[T] {
 
 trait DoubleArrayGenerator extends ArrayGenerator[Double] {
   override implicit  val toOrdered: Double => Ordered[Double] = {
-    d => (that: Double) => d.compareTo(that)
+    d => (that: Double) => {
+      if (d > that ) 1 else 0
+    }
   }
 }
 
