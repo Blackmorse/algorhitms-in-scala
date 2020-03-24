@@ -9,23 +9,25 @@ import scala.common.Histogram
 import scala.reflect.ClassTag
 
 class CutoffQuickSortWithSizeCount[T: ClassTag](cutoff: Int)(override implicit protected val toOrdered: T => Ordered[T]) extends SortAlgorhitm[T] {
-  var cutoffs = mutable.ArrayBuffer[Int]()
+  val cutoffs = mutable.ArrayBuffer[Int]()
+  val cutoffsDepths = mutable.ArrayBuffer[Int]()
 
   override def sort(a: Array[T]): Unit = {
     Helper.shuffle(a)
-    doSort(0, a.length -1 , a)
+    doSort(0, a.length -1 , a, 1)
   }
 
-  private def doSort(lo: Int, hi: Int, a: Array[T]): Unit = {
+  private def doSort(lo: Int, hi: Int, a: Array[T], depth: Int): Unit = {
     if(hi <= lo) return
     if (hi - lo < cutoff) {
       cutoffs += (hi - lo)
+      cutoffsDepths += depth
       Helper.insertionSortSlice(a, lo, hi)
       return
     }
     val j = partition(lo, hi, a)
-    doSort(lo, j - 1, a)
-    doSort(j + 1, hi, a)
+    doSort(lo, j - 1, a, depth + 1)
+    doSort(j + 1, hi, a, depth + 1)
   }
 
   private def partition(lo: Int, hi: Int, a: Array[T]): Int =  {
@@ -55,13 +57,13 @@ object CutoffQuickSortWithSizeCount {
     val alg = new CutoffQuickSortWithSizeCount[Double](50)
 
     for (i <- 1 to 110) {
-      val ar = gen.generate(100000)
+      val ar = gen.generate(1000000)
 
       alg.sort(ar)
     }
 
     println(alg.cutoffs)
 
-    Histogram.draw(alg.cutoffs.toSeq)
+    Histogram.draw(alg.cutoffsDepths.toSeq)
   }
 }
